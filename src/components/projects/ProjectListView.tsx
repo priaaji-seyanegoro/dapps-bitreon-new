@@ -68,7 +68,7 @@ const ProjectListView: React.FC = () => {
             {/* Add New Card */}
             <div
                 onClick={openDialog}
-                className="flex items-center justify-center w-[250px] h-[150px] border-2 border-dashed border-[#1565b5] rounded-lg cursor-pointer bg-blue-500 bg-opacity-10 hover:bg-opacity-25 transition"
+                className="flex items-center justify-center w-[250px] h-[170px] border-2 border-dashed border-[#1565b5] rounded-lg cursor-pointer bg-blue-500 bg-opacity-10 hover:bg-opacity-25 transition"
             >
                 <div className="flex flex-col items-center text-center">
                     <FiPlus className="w-12 h-12" />

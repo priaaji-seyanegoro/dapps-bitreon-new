@@ -132,7 +132,7 @@ export const useProjectStore = create<ProjectStore>()(
         toast.success(response.message);
       } catch (error: any) {
         set({ error: error.message, loading: false });
-        toast.error("Failed to build project pipeline");
+        toast.warning("High server traffic. Please check back periodically");
       }
     },
   }))

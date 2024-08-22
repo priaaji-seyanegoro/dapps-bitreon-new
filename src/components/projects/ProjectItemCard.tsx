@@ -1,8 +1,9 @@
 import React from "react";
-import { FiEdit2, FiTrash2, FiCode, FiPackage, FiServer } from "react-icons/fi";
+import { FiEdit2, FiTrash2, FiCode, FiPackage, FiServer, FiLink } from "react-icons/fi";
 import Image from "next/image";
 import { Project } from "@/stores/useProjectStore";
 import { getFrameworkByValue } from "@/utils/constant";
+import Link from "next/link";
 
 interface ProjectCardProps {
     project: Project;
@@ -16,7 +17,7 @@ const ProjectItemCard: React.FC<ProjectCardProps> = ({ project, onSelect, onEdit
     return (
         <div
             onClick={() => onSelect(project.id)}
-            className={`w-[250px] h-[150px] p-4 bg-[#192650] border border-[#1774d1] rounded-lg shadow-md hover:shadow-lg transition cursor-pointer ${className}`}
+            className={`w-[250px] h-[18 0px] p-4 bg-[#192650] border border-[#1774d1] rounded-lg shadow-md hover:shadow-lg transition cursor-pointer ${className}`}
         >
             <div className="flex flex-col gap-2">
                 <div className="flex flex-row items-center justify-between">
@@ -58,6 +59,17 @@ const ProjectItemCard: React.FC<ProjectCardProps> = ({ project, onSelect, onEdit
                 <div className="flex space-x-2 items-center">
                     <FiServer color="#1774d1" className="h-5 w-5" />
                     <span className="text-xs">{project.port}</span>
+                </div>
+                <div className="flex space-x-2 items-center">
+                    <a
+                        href={`https://${project.subdomain}.bitreon.io`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex space-x-2 items-center"
+                    >
+                        <FiLink color="#1774d1" className="h-5 w-5" />
+                        <span className="text-xs">{project.subdomain}.bitreon.io</span>
+                    </a>
                 </div>
             </div>
         </div>

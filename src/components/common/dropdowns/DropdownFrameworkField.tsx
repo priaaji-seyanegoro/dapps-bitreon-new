@@ -33,7 +33,8 @@ const DropdownFrameworkField: React.FC<FrameworkDropdownProps> = ({
             <Image
               src={selectedFramework.image}
               alt={selectedFramework.name}
-              className="w-6 h-6"
+              width={6}
+              height={6}
             />
             <span>{selectedFramework.name}</span>
           </div>
@@ -57,7 +58,9 @@ const DropdownFrameworkField: React.FC<FrameworkDropdownProps> = ({
               <Image
                 src={framework.image}
                 alt={framework.name}
-                className="w-6 h-6 mr-2"
+                className="mr-2"
+                height={6}
+                width={6}
               />
               <span>{framework.name}</span>
             </div>
