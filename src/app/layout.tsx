@@ -6,8 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const app_title = "Bitreon DAPPS";
-const app_name = "Bitreon DAPPS";
+const app_title = "Bitreon dApps";
+const app_name = "Bitreon dApps";
 const description =
   "Experience secure and scalable privacy protection with Bitreon Cloud advanced VPN, ensuring your data remains confidential and secure.";
 

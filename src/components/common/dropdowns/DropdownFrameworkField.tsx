@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface Framework {
   name: string;
@@ -29,7 +30,7 @@ const DropdownFrameworkField: React.FC<FrameworkDropdownProps> = ({
       >
         {selectedFramework ? (
           <div className="flex items-center space-x-2">
-            <img
+            <Image
               src={selectedFramework.image}
               alt={selectedFramework.name}
               className="w-6 h-6"
@@ -53,7 +54,7 @@ const DropdownFrameworkField: React.FC<FrameworkDropdownProps> = ({
               }}
               className="flex items-center p-2 hover:bg-gray-200 cursor-pointer"
             >
-              <img
+              <Image
                 src={framework.image}
                 alt={framework.name}
                 className="w-6 h-6 mr-2"

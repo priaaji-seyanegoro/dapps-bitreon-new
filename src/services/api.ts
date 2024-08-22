@@ -21,7 +21,7 @@ const api = axios.create({
 const excludedEndpoints = ["/api/user/login", "/api/user/register"];
 
 // Function to handle the redirection when a 401 error occurs
-const handleUnauthorized = () => {
+const HandleUnauthorized = () => {
   const router = useRouter();
   localStorage.removeItem("token"); // Remove token from localStorage
   router.push("/login"); // Redirect to login page
@@ -67,7 +67,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       // Handle unauthorized error
-      handleUnauthorized();
+      HandleUnauthorized();
     }
     return Promise.reject(error);
   }

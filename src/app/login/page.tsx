@@ -61,7 +61,7 @@ export default function LoginPage() {
               width={48}
               height={48}
             />
-            <h2 className="text-3xl md:text-4xl font-bold">Bitreon DAPPS</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">Bitreon dApps</h2>
           </div>
           <p className="text-gray-400">
             Effortlessly deploy your web projects and focus on creating exceptional digital experiences.
