@@ -6,6 +6,13 @@ import { toast } from 'react-toastify';
 import AuthService from '@/services/auth';
 import Image from 'next/image';
 import BitreonLogo from '@/assets/images/bitreon_logo.png'
+import { client } from "../client";
+import { ConnectButton, darkTheme } from "thirdweb/react";
+import { LoginPayload, VerifyLoginPayloadParams } from 'thirdweb/auth';
+import { sepolia } from 'thirdweb/chains';
+import { post } from '@/services/api';
+import { createWallet } from 'thirdweb/wallets';
+import { generatePayload, isLoggedIn, login, logout } from '../actions/login';
 
 interface LoginResponse {
   token: string;
@@ -17,6 +24,14 @@ export default function LoginPage() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const wallets = [
+    createWallet("io.metamask"),
+    createWallet("com.coinbase.wallet"),
+    createWallet("me.rainbow"),
+    createWallet("io.zerion.wallet"),
+    createWallet("io.rabby"),
+    createWallet("com.binance"),
+  ];
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -110,6 +125,51 @@ export default function LoginPage() {
             >
               Sign In
             </button>
+            <ConnectButton client={client}
+              auth={{
+                isLoggedIn: async (address) => {
+                  console.log("checking if logged in!", { address });
+                  return await isLoggedIn();
+                },
+                doLogin: async (params) => {
+                  console.log("logging in!");
+                  await login(params);
+                },
+                getLoginPayload: async ({ address }) =>
+                  generatePayload({ address }),
+                doLogout: async () => {
+                  console.log("logging out!");
+                  await logout();
+                },
+              }}
+            />
+
+            {/* <div className='w-full'>
+              <ConnectButton
+                client={client}
+                wallets={wallets}
+                theme={darkTheme({
+                  colors: {
+                    modalBg: "#000040",
+                    borderColor: "#ffffff",
+                    accentText: "#ffffff",
+                    separatorLine: "#ffffff",
+                    tertiaryBg: "#030303",
+                    connectedButtonBg: "#040d20",
+                    primaryButtonBg: "#2563eb",
+                    primaryButtonText: "#ffffff",
+                    secondaryButtonBg: "#ffffff",
+                  },
+                })}
+                connectButton={{ label: "Connect To Wallet" }}
+                connectModal={{
+                  size: "compact",
+                  title: "Bitreon Connect",
+                  showThirdwebBranding: false,
+                }}
+              />
+            </div> */}
+
           </form>
 
           <p className="mt-8 text-sm text-center text-gray-300">
