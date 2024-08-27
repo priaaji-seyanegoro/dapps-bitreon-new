@@ -28,6 +28,14 @@ export async function login(payload: VerifyLoginPayloadParams) {
 	}
 }
 
+export async function getJwt() {
+	const jwt = cookies().get("jwt");
+	if (!jwt?.value) {
+		return false;
+	}
+	return jwt.value;
+}
+
 export async function isLoggedIn() {
 	const jwt = cookies().get("jwt");
 	if (!jwt?.value) {

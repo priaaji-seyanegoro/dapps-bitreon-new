@@ -35,7 +35,7 @@ api.interceptors.request.use(
 		);
 
 		if (!isExcluded) {
-			const token = localStorage.getItem("token");
+			const token = localStorage.getItem("jwt");
 
 			if (token) {
 				if (config.headers) {

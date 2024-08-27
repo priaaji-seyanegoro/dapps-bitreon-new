@@ -12,7 +12,13 @@ import { sepolia } from "thirdweb/chains";
 import { ConnectButton, darkTheme } from "thirdweb/react";
 import { useActiveAccount } from "thirdweb/react";
 import { createWallet } from "thirdweb/wallets";
-import { generatePayload, isLoggedIn, login, logout } from "../actions/login";
+import {
+	generatePayload,
+	getJwt,
+	isLoggedIn,
+	login,
+	logout,
+} from "../actions/login";
 import { client } from "../client";
 
 interface LoginResponse {
@@ -36,17 +42,6 @@ export default function LoginPage() {
 
 	const activeAccount = useActiveAccount();
 	console.log({ activeAccount });
-
-	useEffect(() => {
-		if (activeAccount) {
-			console.log("active account!", { activeAccount });
-			const token = localStorage.getItem("token");
-			if (token) {
-				// Redirect to the dashboard if already logged in
-				router.push("/dashboard");
-			}
-		}
-	}, [activeAccount, router]);
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
@@ -154,7 +149,15 @@ export default function LoginPage() {
 							auth={{
 								isLoggedIn: async (address) => {
 									console.log("checking if logged in!", { address });
-									return await isLoggedIn();
+									const loggedIn = await isLoggedIn();
+
+									if (loggedIn) {
+										const jwt = await getJwt();
+										localStorage.setItem("jwt", `${jwt}`);
+										router.push("/dashboard");
+									}
+
+									return loggedIn;
 								},
 								doLogin: async (params) => {
 									console.log("logging in!");
