@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.1.2",
+    "@thirdweb-dev/react": "^4.9.4",
+    "@thirdweb-dev/sdk": "^4.0.99",
     "@types/axios": "^0.14.0",
     "axios": "^1.7.4",
+    "ethers": "5",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
