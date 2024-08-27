@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
-  const token = req.cookies.get('token');
+  const token = req.cookies.get('jwt');
   const { pathname } = req.nextUrl;
 
-  console.log(token);
+  console.log('zzz', token);
 
   // Redirect to dashboard if trying to access login or register while authenticated
   if (token && (pathname === '/login' || pathname === '/register')) {

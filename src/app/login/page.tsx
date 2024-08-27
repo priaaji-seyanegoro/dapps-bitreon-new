@@ -79,7 +79,7 @@ export default function LoginPage() {
 	return (
 		<div className="flex flex-col md:flex-row min-h-screen bg-[#0a1a3e] text-white">
 			{/* Left Section - Promotional Content */}
-			<div className="flex items-center justify-center w-full md:w-1/2 lg:w-2/5 bg-[#040d20] p-8">
+			<div className="flex items-center justify-center w-full  bg-[#040d20] p-8">
 				<div className="text-center md:text-left">
 					<div className="flex flex-row items-center space-x-2 mb-4">
 						<Image
@@ -91,15 +91,63 @@ export default function LoginPage() {
 						/>
 						<h2 className="text-3xl md:text-4xl font-bold">Bitreon dApps</h2>
 					</div>
-					<p className="text-gray-400">
+					<p className="text-gray-400 mb-3">
 						Effortlessly deploy your web projects and focus on creating
 						exceptional digital experiences.
 					</p>
+					<ConnectButton
+						client={client}
+						auth={{
+							isLoggedIn: async (address) => {
+								console.log("checking if logged in!", { address });
+								const loggedIn = await isLoggedIn();
+
+								if (loggedIn) {
+									const jwt = await getJwt();
+									localStorage.setItem("jwt", `${jwt}`);
+									router.push("/dashboard");
+								}
+
+								return loggedIn;
+							},
+							doLogin: async (params) => {
+								console.log("logging in!");
+								await login(params);
+							},
+							getLoginPayload: async ({ address }) =>
+								generatePayload({ address }),
+							doLogout: async () => {
+								console.log("logging out!");
+								await logout();
+								router.push("/");
+							},
+						}}
+						wallets={wallets}
+						theme={darkTheme({
+							colors: {
+								modalBg: "#000040",
+								borderColor: "#ffffff",
+								accentText: "#ffffff",
+								separatorLine: "#ffffff",
+								tertiaryBg: "#030303",
+								connectedButtonBg: "#040d20",
+								primaryButtonBg: "#2563eb",
+								primaryButtonText: "#ffffff",
+								secondaryButtonBg: "#ffffff",
+							},
+						})}
+						connectButton={{ label: "Connect To Wallet" }}
+						connectModal={{
+							size: "compact",
+							title: "Bitreon Connect",
+							showThirdwebBranding: false,
+						}}
+					/>
 				</div>
 			</div>
 
 			{/* Right Section - Login Form */}
-			<div className="flex items-center justify-center w-full md:w-1/2 lg:w-3/5 p-8 bg-[#0a1a3e]">
+			{/* <div className="flex items-center justify-center w-full md:w-1/2 lg:w-3/5 p-8 bg-[#0a1a3e]">
 				<div className="w-full max-w-md">
 					<h2 className="mb-2 text-2xl font-semibold text-white">Sign In</h2>
 					<p className="mb-10 text-gray-400">
@@ -144,59 +192,57 @@ export default function LoginPage() {
 						>
 							Sign In
 						</button>
-						<ConnectButton
-							client={client}
-							auth={{
-								isLoggedIn: async (address) => {
-									console.log("checking if logged in!", { address });
-									const loggedIn = await isLoggedIn();
+						
 
-									if (loggedIn) {
-										const jwt = await getJwt();
-										localStorage.setItem("jwt", `${jwt}`);
-										router.push("/dashboard");
-									}
+						<div className='w-full'>
+							<ConnectButton
+								client={client}
+								auth={{
+									isLoggedIn: async (address) => {
+										console.log("checking if logged in!", { address });
+										const loggedIn = await isLoggedIn();
 
-									return loggedIn;
-								},
-								doLogin: async (params) => {
-									console.log("logging in!");
-									await login(params);
-								},
-								getLoginPayload: async ({ address }) =>
-									generatePayload({ address }),
-								doLogout: async () => {
-									console.log("logging out!");
-									await logout();
-								},
-							}}
-						/>
+										if (loggedIn) {
+											const jwt = await getJwt();
+											localStorage.setItem("jwt", `${jwt}`);
+											router.push("/dashboard");
+										}
 
-						{/* <div className='w-full'>
-              <ConnectButton
-                client={client}
-                wallets={wallets}
-                theme={darkTheme({
-                  colors: {
-                    modalBg: "#000040",
-                    borderColor: "#ffffff",
-                    accentText: "#ffffff",
-                    separatorLine: "#ffffff",
-                    tertiaryBg: "#030303",
-                    connectedButtonBg: "#040d20",
-                    primaryButtonBg: "#2563eb",
-                    primaryButtonText: "#ffffff",
-                    secondaryButtonBg: "#ffffff",
-                  },
-                })}
-                connectButton={{ label: "Connect To Wallet" }}
-                connectModal={{
-                  size: "compact",
-                  title: "Bitreon Connect",
-                  showThirdwebBranding: false,
-                }}
-              />
-            </div> */}
+										return loggedIn;
+									},
+									doLogin: async (params) => {
+										console.log("logging in!");
+										await login(params);
+									},
+									getLoginPayload: async ({ address }) =>
+										generatePayload({ address }),
+									doLogout: async () => {
+										console.log("logging out!");
+										await logout();
+									},
+								}}
+								wallets={wallets}
+								theme={darkTheme({
+									colors: {
+										modalBg: "#000040",
+										borderColor: "#ffffff",
+										accentText: "#ffffff",
+										separatorLine: "#ffffff",
+										tertiaryBg: "#030303",
+										connectedButtonBg: "#040d20",
+										primaryButtonBg: "#2563eb",
+										primaryButtonText: "#ffffff",
+										secondaryButtonBg: "#ffffff",
+									},
+								})}
+								connectButton={{ label: "Connect To Wallet" }}
+								connectModal={{
+									size: "compact",
+									title: "Bitreon Connect",
+									showThirdwebBranding: false,
+								}}
+							/>
+						</div>
 					</form>
 
 					<p className="mt-8 text-sm text-center text-gray-300">
@@ -206,7 +252,7 @@ export default function LoginPage() {
 						</a>
 					</p>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }
