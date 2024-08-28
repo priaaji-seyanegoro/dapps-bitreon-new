@@ -18,13 +18,13 @@ export const frameworks = [
   {
     name: "Spring Boot",
     value: "springboot",
-    image: "/assets/images/springboot.png",
+    image: "/springboot.png",
   },
-  { name: "Ruby on Rails", value: "rails", image: "/assets/images/ruby.png" },
+  { name: "Ruby on Rails", value: "rails", image: "/ruby.png" },
   {
     name: "Express.js",
     value: "expressjs",
-    image: "/assets/images/expressjs.png",
+    image: "/expressjs.png",
   },
 ];
 

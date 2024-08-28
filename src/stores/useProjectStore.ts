@@ -61,6 +61,7 @@ export const useProjectStore = create<ProjectStore>()(
         toast.success("Project created successfully");
       } catch (error: any) {
         set({ error: error.message, loading: false });
+        toast.error(error.response.data.error);
       }
     },
 
@@ -77,6 +78,7 @@ export const useProjectStore = create<ProjectStore>()(
         toast.success("Project edited successfully");
       } catch (error: any) {
         set({ error: error.message, loading: false });
+        toast.error(error.response.data.error);
       }
     },
 
