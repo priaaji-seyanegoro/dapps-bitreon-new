@@ -47,13 +47,14 @@ const AppFilePicker: React.FC<FilePickerProps> = ({ projectId, onFileSelect }) =
   };
 
   const validateAndSelectFile = (file: File) => {
-    const validExtensions = ['application/zip', 'application/x-rar-compressed'];
+    console.log(file)
+    const validExtensions = ['application/zip'];
     if (validExtensions.includes(file.type)) {
       setError(null);
       setSelectedFile(file);
       onFileSelect(file);
     } else {
-      setError('Only .zip and .rar files are allowed.');
+      setError('Only .zip files are allowed.');
       setSelectedFile(null);
       onFileSelect(null);
     }
