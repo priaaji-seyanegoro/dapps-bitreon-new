@@ -48,7 +48,7 @@ const AppFilePicker: React.FC<FilePickerProps> = ({ projectId, onFileSelect }) =
 
   const validateAndSelectFile = (file: File) => {
     console.log(file)
-    const validExtensions = ['application/zip'];
+    const validExtensions = ['application/zip', 'application/x-zip-compressed'];
     if (validExtensions.includes(file.type)) {
       setError(null);
       setSelectedFile(file);

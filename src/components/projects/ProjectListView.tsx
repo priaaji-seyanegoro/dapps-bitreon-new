@@ -21,13 +21,21 @@ const ProjectListView: React.FC = () => {
     } = useProjectStore();
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isEdit, setIsEdit] = useState(false)
     const [isDialogDeleteOpen, setIsDialogDeleteOpen] = useState(false);
 
     useEffect(() => {
         fetchProjects();
     }, [fetchProjects]);
 
-    const openDialog = () => setIsDialogOpen(true);
+    const openDialog = (isEditForm = false) => {
+        if (isEditForm) {
+            setIsEdit(true)
+        } else {
+            setIsEdit(false)
+        }
+        setIsDialogOpen(true);
+    }
     const closeDialog = () => {
         selectProject(null);
         setIsDialogOpen(false);
@@ -67,7 +75,7 @@ const ProjectListView: React.FC = () => {
         <div className="mt-4 p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {/* Add New Card */}
             <div
-                onClick={openDialog}
+                onClick={() => openDialog(false)}
                 className="flex items-center justify-center w-[250px] h-[170px] border-2 border-dashed border-[#1565b5] rounded-lg cursor-pointer bg-blue-500 bg-opacity-10 hover:bg-opacity-25 transition"
             >
                 <div className="flex flex-col items-center text-center">
@@ -84,7 +92,7 @@ const ProjectListView: React.FC = () => {
                     onSelect={(id) => navigateToDetail(id)}
                     onEdit={() => {
                         selectProject(project);
-                        openDialog();
+                        openDialog(true);
                     }}
                     onDelete={() => openDialogDelete(project)}
                 />
@@ -96,6 +104,7 @@ const ProjectListView: React.FC = () => {
                 closeModal={closeDialog}
                 onSubmit={handleAddOrUpdateProject}
                 selectedProject={selectedProject}
+                isEdit={isEdit}
             />
 
             {/* Delete Project Dialog */}

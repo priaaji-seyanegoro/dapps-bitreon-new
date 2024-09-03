@@ -12,6 +12,8 @@ interface AddProjectDialogProps {
     closeModal: () => void;
     onSubmit: (data: ProjectFormData) => void;
     selectedProject: Project | null;
+    isEdit: boolean;
+
 }
 
 interface ProjectFormData {
@@ -20,7 +22,7 @@ interface ProjectFormData {
     framework: string;
 }
 
-const DialogAddProject: React.FC<AddProjectDialogProps> = ({ isOpen, closeModal, onSubmit, selectedProject }) => {
+const DialogAddProject: React.FC<AddProjectDialogProps> = ({ isOpen, closeModal, onSubmit, selectedProject, isEdit }) => {
     const { register, handleSubmit, reset, setValue } = useForm<ProjectFormData>({
         defaultValues: {
             name: selectedProject?.name ?? '',
@@ -103,24 +105,30 @@ const DialogAddProject: React.FC<AddProjectDialogProps> = ({ isOpen, closeModal,
                                             placeholder="Enter subdomain"
                                         />
                                     </div>
+                                    {
+                                        !isEdit && (
+                                            <div >
+                                                <label htmlFor="framework" className="block text-sm text-gray-300">
+                                                    Framework
+                                                </label>
+                                                <div className="mt-1 grid grid-cols-4 gap-2 max-h-32 overflow-y-auto">
+                                                    {frameworks.map((fw) => (
+                                                        <div
+                                                            key={fw.value}
+                                                            className={`flex flex-col items-center justify-center p-2  cursor-pointer 
+                                                ${fw.isDisable ? 'cursor-not-allowed opacity-20' : selectedFramework === fw.value ? 'rounded border border-blue-500' : 'border-transparent hover:border-gray-400'}`}
+                                                            onClick={() => !fw.isDisable && setSelectedFramework(fw.value)}
+                                                        >
+                                                            <Image src={fw.image} alt={fw.name} width={24} height={24} />
+                                                            <span className="ml-2 text-xs text-center text-gray-300">{fw.name}</span>
+                                                        </div>
 
-                                    <div>
-                                        <label htmlFor="framework" className="block text-sm text-gray-300">
-                                            Framework
-                                        </label>
-                                        <div className="mt-1 grid grid-cols-4 gap-2 max-h-32 overflow-y-auto">
-                                            {frameworks.map((fw) => (
-                                                <div
-                                                    key={fw.value}
-                                                    className={`flex flex-col items-center justify-center p-2 rounded border cursor-pointer ${selectedFramework === fw.value ? 'border-blue-500' : 'border-transparent hover:border-gray-400'}`}
-                                                    onClick={() => setSelectedFramework(fw.value)}
-                                                >
-                                                    <Image src={fw.image} alt={fw.name} width={24} height={24} />
-                                                    <span className="ml-2 text-xs text-center text-gray-300">{fw.name}</span>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                            </div>
+                                        )
+                                    }
+
 
                                     <div className="flex flex-row justify-end mt-6">
                                         <AppButton
