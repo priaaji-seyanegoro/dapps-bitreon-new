@@ -102,6 +102,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         closeModal={closeDialog}
         onSubmit={handleAddOrUpdateProject}
         selectedProject={selectedProject}
+        isEdit={true}
       />
 
       {/* Delete Project Dialog */}
