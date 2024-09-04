@@ -96,7 +96,11 @@ const AppFilePicker: React.FC<FilePickerProps> = ({ projectId, onFileSelect }) =
               <p className="text-lg font-semibold text-gray-400">
                 Drag and drop files or <span className="text-blue-400">Browse</span>
               </p>
-              <p className="text-gray-500">.zip and .rar files</p>
+              <p className="text-gray-500 italic">
+                For Javascript project make sure the project includes <b className='text-gray-300'>`npm run build`</b> and
+                <b className='text-gray-300'>`npm run start`</b> in the  <b className='text-gray-300'>`package.json`</b> scripts. When zipping the project,
+                do not include the <b className='text-gray-300'>`node_modules`</b> folder. Upload the file as a <b className='text-gray-300'>.zip`</b>`.
+              </p>
             </div>
           ) : (
             <div className="flex flex-col items-center">
